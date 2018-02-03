@@ -38,6 +38,8 @@
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Contracts\IConfigurationService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Contracts\IHttpService.cs" />
+    <Compile Include="Services\HttpService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
