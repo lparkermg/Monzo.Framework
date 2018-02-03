@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using Monzo.Framework.Services;
 
@@ -17,15 +18,14 @@ namespace Monzo.Client
             var authservice = new AuthenticationLocalService(configService, logger);
 
 
+            var accountService = new AccountService(httpService, logger, jsonservice, authservice.GetAuth());
+            var acc = accountService.GetAccounts(Framework.Enums.AccountType.UKRetail);
 
-            var accountservice = new AccountService(httpService, logger, jsonservice, authservice.GetAuth());
 
-            var account = accountservice.GetAccounts(Framework.Enums.AccountType.UKRetail).Result;
 
-            foreach(var current in account.AccountCollection)
-            {
-                Console.WriteLine(current.ID);
-            }
+
+            var balanceService = new BalanceService(httpService, logger, jsonservice, authservice.GetAuth());
+            Console.WriteLine(balanceService.GetBalance(acc.Result.AccountCollection.First()).Result.BalanceAmount);
         }
     }
 }
