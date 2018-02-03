@@ -31,6 +31,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -43,6 +46,8 @@
     <Compile Include="Entities\Authentication.cs" />
     <Compile Include="Contracts\IAuthenticationService.cs" />
     <Compile Include="Services\AuthenticationLocalService.cs" />
+    <Compile Include="Contracts\IJSONService.cs" />
+    <Compile Include="Services\JSONService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
