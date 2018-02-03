@@ -19,20 +19,13 @@ namespace Monzo.Client
             {
                 {
                     "Authorization",
-                    "Bearer " + configService.GetEnvironmentVariable("MONZO")
+                    "Bearer " + configService.GetEnvironmentVariable("MONZO") + 't'
                 }
             };
 
-            Console.WriteLine("Hello World! 1");
             var result = httpService.Get(new Uri("https://api.monzo.com/ping/whoami"), headers);
 
-            Console.WriteLine("Hello World! 2");
-            result.Wait();
-            Console.WriteLine("Hello World! 3 ");
             Console.WriteLine(result.Result);
-
-            Console.WriteLine("Hello World! 4");
-            Console.ReadLine();
         }
     }
 }

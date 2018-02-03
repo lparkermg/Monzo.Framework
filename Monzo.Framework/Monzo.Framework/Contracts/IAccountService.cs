@@ -1,6 +1,7 @@
 ﻿namespace Monzo.Framework.Contracts
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Monzo.Framework.Entities;
     using Monzo.Framework.Enums;
 
@@ -13,13 +14,13 @@
         /// Gets all Accounts.
         /// </summary>
         /// <returns>The accounts.</returns>
-        List<Account> GetAccounts();
+        Task<List<Account>> GetAccounts();
 
         /// <summary>
         /// Gets the accounts fitered by the passed account type.
         /// </summary>
         /// <returns>The accounts.</returns>
         /// <param name="type">account type to filter on.</param>
-        List<Account> GetAccounts(AccountType type);
+        Task<List<Account>> GetAccounts(AccountType type);
     }
 }
