@@ -50,6 +50,7 @@
     <Compile Include="Services\AuthenticationLocalServiceTests.cs" />
     <Compile Include="Extensions\AccountTypeExtensionsTests.cs" />
     <Compile Include="Services\AccountServiceTests.cs" />
+    <Compile Include="Services\PotServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
