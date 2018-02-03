@@ -48,11 +48,19 @@
     <Compile Include="Services\AuthenticationLocalService.cs" />
     <Compile Include="Contracts\IJSONService.cs" />
     <Compile Include="Services\JSONService.cs" />
+    <Compile Include="Entities\Account.cs" />
+    <Compile Include="Contracts\IAccountService.cs" />
+    <Compile Include="Enums\AccountType.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Extensions\AccountTypeExtensions.cs" />
+    <Compile Include="Entities\Accounts.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
     <Folder Include="Services\" />
     <Folder Include="Entities\" />
+    <Folder Include="Enums\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

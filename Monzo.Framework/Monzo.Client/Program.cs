@@ -12,27 +12,20 @@ namespace Monzo.Client
             var log = LogManager.GetLogger(System.Reflection.Assembly.GetExecutingAssembly().GetName().Name);
             var configService = new ConfigurationService();
             var logger = new Logger(log);
-
+            var jsonservice = new JSONService(logger);
             var httpService = new HttpService(logger);
+            var authservice = new AuthenticationLocalService(configService, logger);
 
-            var headers = new Dictionary<string, string>()
+
+
+            var accountservice = new AccountService(httpService, logger, jsonservice, authservice.GetAuth());
+
+            var account = accountservice.GetAccounts(Framework.Enums.AccountType.UKRetail).Result;
+
+            foreach(var current in account.AccountCollection)
             {
-                {
-                    "Authorization",
-                    "Bearer " + configService.GetEnvironmentVariable("MONZO")
-                }
-            };
-
-            Console.WriteLine("Hello World! 1");
-            var result = httpService.Get(new Uri("https://api.monzo.com/ping/whoami"), headers);
-
-            Console.WriteLine("Hello World! 2");
-            result.Wait();
-            Console.WriteLine("Hello World! 3 ");
-            Console.WriteLine(result.Result);
-
-            Console.WriteLine("Hello World! 4");
-            Console.ReadLine();
+                Console.WriteLine(current.ID);
+            }
         }
     }
 }
