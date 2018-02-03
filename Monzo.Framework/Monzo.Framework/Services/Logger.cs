@@ -7,7 +7,7 @@
     /// <summary>
     /// Logger service
     /// </summary>
-    public sealed class Logger : ILogger
+    public class Logger : ILogger
     {
         /// <summary>
         /// The Log4Net Logger
@@ -18,7 +18,7 @@
         /// Initializes a new instance of the <see cref="T:Monzo.Framework.Services.Logger"/> class.
         /// </summary>
         /// <param name="log">injected Loger.</param>
-        private Logger(ILog log)
+        public Logger(ILog log)
         {
             this.log = log;
         }
