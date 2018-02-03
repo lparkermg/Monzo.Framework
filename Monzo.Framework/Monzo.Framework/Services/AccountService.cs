@@ -1,6 +1,5 @@
 ﻿namespace Monzo.Framework.Services
 {
-
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -10,28 +9,8 @@
     using Monzo.Framework.Extensions;
 
     /// <inhertidoc />
-    public class AccountService : IAccountService
-    {
-        /// <summary>
-        /// The http service.
-        /// </summary>
-        private readonly IHttpService httpService;
-
-        /// <summary>
-        /// The logger.
-        /// </summary>
-        private readonly ILogger logger;
-
-        /// <summary>
-        /// The json service.
-        /// </summary>
-        private readonly IJSONService jsonService;
-
-        /// <summary>
-        /// The authetication.
-        /// </summary>
-        private readonly Authentication authetication;
-
+    public class AccountService : BaseService, IAccountService
+    {       
         /// <summary>
         /// The API endpoint.
         /// </summary>
@@ -48,18 +27,10 @@
             IHttpService httpService, 
             ILogger logger, 
             IJSONService jsonService, 
-            Authentication authetication)
+            Authentication authetication) 
+            : base(httpService, logger, jsonService, authetication)
         {
-            this.httpService = httpService ?? throw new ArgumentNullException(nameof(httpService)); 
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger)); 
-            this.jsonService = jsonService ?? throw new ArgumentNullException(nameof(jsonService)); 
-
-            if (string.IsNullOrWhiteSpace(authetication.AccessToken))
-            {
-                throw new ArgumentNullException(nameof(authetication.AccessToken));
-            }
-
-            this.authetication = authetication;
+            
         }
 
         /// <inhertidoc />
