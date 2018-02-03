@@ -33,7 +33,7 @@
         /// <param name="logger">Logger.</param>
         /// <param name="jsonService">Json service.</param>
         /// <param name="authetication">Authetication.</param>
-        public BaseService(
+        protected BaseService(
            IHttpService httpService,
            ILogger logger,
            IJSONService jsonService,

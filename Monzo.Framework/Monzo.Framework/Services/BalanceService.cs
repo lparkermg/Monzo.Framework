@@ -40,7 +40,7 @@
             }
 
             var uri = new Uri(BalanceService.Endpoint + "?account_id=" + account.ID);
-            var headers = new Dictionary<string, string>()
+            var headers = new Dictionary<string, string>
             {
                 {
                     "Authorization",
