@@ -60,6 +60,8 @@
     <Compile Include="Services\PotService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Entities\Balance.cs" />
+    <Compile Include="Contracts\IBalanceService.cs" />
+    <Compile Include="Services\BalanceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />

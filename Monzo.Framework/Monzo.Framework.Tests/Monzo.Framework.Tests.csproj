@@ -51,6 +51,7 @@
     <Compile Include="Extensions\AccountTypeExtensionsTests.cs" />
     <Compile Include="Services\AccountServiceTests.cs" />
     <Compile Include="Services\PotServiceTests.cs" />
+    <Compile Include="Services\BalanceServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
