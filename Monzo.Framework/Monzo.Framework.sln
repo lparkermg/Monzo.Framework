@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monzo.Framework", "Monzo.Fr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monzo.Client", "Monzo.Client\Monzo.Client.csproj", "{56570B09-968A-4BD8-A1E3-1643134FE58B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monzo.Framework.Tests", "Monzo.Framework.Tests\Monzo.Framework.Tests.csproj", "{18C3E21E-552D-4A03-89FB-8F5A31ECD792}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{56570B09-968A-4BD8-A1E3-1643134FE58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56570B09-968A-4BD8-A1E3-1643134FE58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56570B09-968A-4BD8-A1E3-1643134FE58B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C3E21E-552D-4A03-89FB-8F5A31ECD792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C3E21E-552D-4A03-89FB-8F5A31ECD792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C3E21E-552D-4A03-89FB-8F5A31ECD792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C3E21E-552D-4A03-89FB-8F5A31ECD792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
