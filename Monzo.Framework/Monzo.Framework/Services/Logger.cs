@@ -7,7 +7,7 @@
     /// <summary>
     /// Logger service
     /// </summary>
-    public class Logger : ILogger
+    public sealed class Logger : ILogger
     {
         /// <summary>
         /// The Log4Net Logger
