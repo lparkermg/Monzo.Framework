@@ -59,6 +59,7 @@
     <Compile Include="Contracts\IPotService.cs" />
     <Compile Include="Services\PotService.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Entities\Balance.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
