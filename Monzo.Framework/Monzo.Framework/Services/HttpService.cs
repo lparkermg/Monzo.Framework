@@ -34,7 +34,7 @@
                     client.Headers.Set(currentHeader.Key, currentHeader.Value);
                 }
                              
-                return await client.DownloadStringTaskAsync(uri.AbsolutePath);
+                return await client.DownloadStringTaskAsync(uri.AbsoluteUri);
             }
         }
     }
