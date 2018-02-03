@@ -54,6 +54,11 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Extensions\AccountTypeExtensions.cs" />
     <Compile Include="Entities\Accounts.cs" />
+    <Compile Include="Entities\Pot.cs" />
+    <Compile Include="Entities\Pots.cs" />
+    <Compile Include="Contracts\IPotService.cs" />
+    <Compile Include="Services\PotService.cs" />
+    <Compile Include="Services\BaseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
