@@ -53,6 +53,7 @@
     <Compile Include="Enums\AccountType.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Extensions\AccountTypeExtensions.cs" />
+    <Compile Include="Entities\Accounts.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />

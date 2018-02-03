@@ -62,7 +62,7 @@
         }
 
         /// <inhertidoc />
-        public async Task<List<Account>> GetAccounts()
+        public async Task<Accounts> GetAccounts()
         {
             var uri = new Uri(AccountService.Endpoint);
             var headers = new Dictionary<string, string>()
@@ -74,11 +74,11 @@
             };
 
             var rawJson = await this.httpService.Get(uri, headers);
-            return this.jsonService.Parse<List<Account>>(rawJson);
+            return this.jsonService.Parse<Accounts>(rawJson);
         }
 
         /// <inhertidoc />
-        public async Task<List<Account>> GetAccounts(AccountType type)
+        public async Task<List<Accounts>> GetAccounts(AccountType type)
         {
             throw new NotImplementedException();
         }

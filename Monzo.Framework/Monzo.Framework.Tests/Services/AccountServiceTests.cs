@@ -71,12 +71,12 @@
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
-                .Setup(x => x.Parse<List<Account>>("json"))
-                .Returns(new List<Account>());
+                .Setup(x => x.Parse<Accounts>("json"))
+                .Returns(new Accounts() { AccountCollection = new List<Account>()});
 
             var result = await this.GetInstance().GetAccounts();
 
-            CollectionAssert.IsEmpty(result);
+            CollectionAssert.IsEmpty(result.AccountCollection);
             this.httpService.VerifyAll();
             this.jsonService.VerifyAll();
         }
@@ -84,23 +84,24 @@
         [Test]
         public async Task GetAccounts_AccountsFound_AccountsReturned()
         {
-            var returned = new List<Account>();
-            returned.Add(new Account() { ID = "1" , Created = new DateTime(2018,01,01), Description = "desc"});
+            var returned = new Accounts();
+            returned.AccountCollection = new List<Account>();
+            returned.AccountCollection.Add(new Account() { ID = "1" , Created = new DateTime(2018,01,01), Description = "desc"});
 
             this.httpService
                 .Setup(x => x.Get(new Uri(AccountService.Endpoint), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
-                .Setup(x => x.Parse<List<Account>>("json"))
+                .Setup(x => x.Parse<Accounts>("json"))
                 .Returns(returned);
 
             var result = await this.GetInstance().GetAccounts();
 
-            Assert.AreEqual(1, result.Count);
-            Assert.AreEqual(returned.First().ID, returned.First().ID);
-            Assert.AreEqual(returned.First().Created, returned.First().Created);
-            Assert.AreEqual(returned.First().Description, returned.First().Description);
+            Assert.AreEqual(1, result.AccountCollection.Count);
+            Assert.AreEqual(returned.AccountCollection.First().ID, result.AccountCollection.First().ID);
+            Assert.AreEqual(returned.AccountCollection.First().Created, result.AccountCollection.First().Created);
+            Assert.AreEqual(returned.AccountCollection.First().Description, result.AccountCollection.First().Description);
 
             this.httpService.VerifyAll();
             this.jsonService.VerifyAll();
