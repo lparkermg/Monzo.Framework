@@ -9,6 +9,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using System.Linq;
+    using Monzo.Framework.Enums;
+    using Monzo.Framework.Extensions;
 
     /// <summary>
     /// Tests for the <see cref="AccountService"/> class.
@@ -63,7 +65,7 @@
         /// <summary>
         /// Ensures when there are no accounts returned, an empty list is returned.
         /// </summary>
-        [TestCase]
+        [Test]
         public async Task GetAccounts_NoAccounts_EmptyList()
         {
             this.httpService
@@ -81,6 +83,9 @@
             this.jsonService.VerifyAll();
         }
 
+        /// <summary>
+        /// Ensures when there are accounts found, they are returned.
+        /// </summary>
         [Test]
         public async Task GetAccounts_AccountsFound_AccountsReturned()
         {
@@ -97,6 +102,35 @@
                 .Returns(returned);
 
             var result = await this.GetInstance().GetAccounts();
+
+            Assert.AreEqual(1, result.AccountCollection.Count);
+            Assert.AreEqual(returned.AccountCollection.First().ID, result.AccountCollection.First().ID);
+            Assert.AreEqual(returned.AccountCollection.First().Created, result.AccountCollection.First().Created);
+            Assert.AreEqual(returned.AccountCollection.First().Description, result.AccountCollection.First().Description);
+
+            this.httpService.VerifyAll();
+            this.jsonService.VerifyAll();
+        }
+
+        /// <summary>
+        /// Ensures when an account type is suppied, the account type is added to the uri and returning data is returned.
+        /// </summary>      
+        [Test]
+        public async Task GetAccounts_WithAccountType_AccountsReturned()
+        {
+            var returned = new Accounts();
+            returned.AccountCollection = new List<Account>();
+            returned.AccountCollection.Add(new Account() { ID = "1", Created = new DateTime(2018, 01, 01), Description = "desc" });
+
+            this.httpService
+                .Setup(x => x.Get(new Uri(AccountService.Endpoint + "?account_type=" + AccountType.UKRetail.GetDescription() ), this.headers))
+                .Returns(Task.FromResult<string>("json"));
+
+            this.jsonService
+                .Setup(x => x.Parse<Accounts>("json"))
+                .Returns(returned);
+
+            var result = await this.GetInstance().GetAccounts(AccountType.UKRetail);
 
             Assert.AreEqual(1, result.AccountCollection.Count);
             Assert.AreEqual(returned.AccountCollection.First().ID, result.AccountCollection.First().ID);

@@ -21,6 +21,6 @@
         /// </summary>
         /// <returns>The accounts.</returns>
         /// <param name="type">account type to filter on.</param>
-        Task<List<Accounts>> GetAccounts(AccountType type);
+        Task<Accounts> GetAccounts(AccountType type);
     }
 }

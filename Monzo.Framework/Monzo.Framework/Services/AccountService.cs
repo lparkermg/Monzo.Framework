@@ -7,6 +7,7 @@
     using Monzo.Framework.Contracts;
     using Monzo.Framework.Entities;
     using Monzo.Framework.Enums;
+    using Monzo.Framework.Extensions;
 
     /// <inhertidoc />
     public class AccountService : IAccountService
@@ -78,9 +79,20 @@
         }
 
         /// <inhertidoc />
-        public async Task<List<Accounts>> GetAccounts(AccountType type)
+        public async Task<Accounts> GetAccounts(AccountType type)
         {
-            throw new NotImplementedException();
+            var uri = new Uri(AccountService.Endpoint + "?account_type=" + type.GetDescription());
+
+            var headers = new Dictionary<string, string>()
+            {
+                {
+                    "Authorization",
+                    "Bearer " + this.authetication.AccessToken
+                }
+            };
+
+            var rawJson = await this.httpService.Get(uri, headers);
+            return this.jsonService.Parse<Accounts>(rawJson);
         }
     }
 }
