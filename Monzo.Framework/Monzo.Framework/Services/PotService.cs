@@ -17,16 +17,10 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Monzo.Framework.Services.PotService"/> class.
         /// </summary>
-        /// <param name="httpService">Http service.</param>
-        /// <param name="logger">Logger.</param>
-        /// <param name="jsonService">Json service.</param>
-        /// <param name="authetication">Authetication.</param>
+        ///<param name="configuration">library configuration</param>
         public PotService(
-            IHttpService httpService,
-            ILogger logger,
-            IJSONService jsonService,
-            Authentication authetication) 
-            : base(httpService, logger, jsonService, authetication)
+            MonzoConfiguration configuration) 
+            : base(configuration)
         {
 
         }

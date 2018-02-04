@@ -35,6 +35,11 @@ namespace Monzo.Framework.Tests.Services
         private Authentication auth;
 
         /// <summary>
+        /// The auth service.
+        /// </summary>
+        private Mock<IAuthenticationService> authService;
+
+        /// <summary>
         /// The headers.
         /// </summary>
         private Dictionary<string, string> headers;
@@ -48,7 +53,11 @@ namespace Monzo.Framework.Tests.Services
             this.httpService = new Mock<IHttpService>();
             this.jsonService = new Mock<IJSONService>();
             this.logger = new Mock<ILogger>();
+
             this.auth = new Authentication() { AccessToken = "test_access_token" };
+            this.authService = new Mock<IAuthenticationService>();
+            this.authService.Setup(x => x.GetAuth()).Returns(auth);
+
             this.headers = new Dictionary<string, string>()
             {
                 {
@@ -214,11 +223,15 @@ namespace Monzo.Framework.Tests.Services
         /// <returns>The instance.</returns>
         private TransactionService GetInstance()
         {
-            return new TransactionService(
-                this.httpService.Object,
-                this.logger.Object,
-                this.jsonService.Object,
-                this.auth);
+            var config = new MonzoConfiguration()
+           {
+               httpService = this.httpService.Object,
+               logger = this.logger.Object,
+               jsonService = this.jsonService.Object,
+               authService = this.authService.Object
+           };
+
+            return new TransactionService(config);
         }
     }
 }

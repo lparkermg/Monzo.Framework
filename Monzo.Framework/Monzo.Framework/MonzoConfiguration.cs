@@ -2,6 +2,7 @@
 {
     using log4net;
     using Monzo.Framework.Contracts;
+    using Monzo.Framework.Entities;
     using Monzo.Framework.Services;
 
     /// <summary>
@@ -51,6 +52,15 @@
             this.jsonService = new JSONService(logger);
             this.httpService =  new HttpService(logger);
             this.authService = new AuthenticationLocalService(configService, logger);
+        }
+
+        /// <summary>
+        /// Gets the auth.
+        /// </summary>
+        /// <returns>The auth.</returns>
+        public Authentication GetAuth()
+        {
+            return this.authService.GetAuth();
         }
     }
 }

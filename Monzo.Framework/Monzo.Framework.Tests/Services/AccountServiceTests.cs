@@ -39,6 +39,11 @@
         private Authentication auth;
 
         /// <summary>
+        /// The auth service.
+        /// </summary>
+        private Mock<IAuthenticationService> authService;
+
+        /// <summary>
         /// The headers.
         /// </summary>
         private Dictionary<string, string> headers;
@@ -52,7 +57,11 @@
             this.httpService = new Mock<IHttpService>();
             this.jsonService = new Mock<IJSONService>();
             this.logger = new Mock<ILogger>();
+
             this.auth = new Authentication() { AccessToken = "test_access_token" };
+            this.authService = new Mock<IAuthenticationService>();           
+            this.authService.Setup(x => x.GetAuth()).Returns(auth);
+
             this.headers = new Dictionary<string, string>()
             {
                 {
@@ -101,7 +110,8 @@
                 .Setup(x => x.Parse<Accounts>("json"))
                 .Returns(returned);
 
-            var result = await this.GetInstance().GetAccountsAsync();
+            var service = this.GetInstance();
+            var result = await service.GetAccountsAsync();
 
             Assert.AreEqual(1, result.AccountCollection.Count);
             Assert.AreEqual(returned.AccountCollection.First().ID, result.AccountCollection.First().ID);
@@ -147,11 +157,15 @@
         /// <returns>The instance.</returns>
         private AccountService GetInstance()
         {
-            return new AccountService(
-                this.httpService.Object,
-                this.logger.Object,
-                this.jsonService.Object,
-                this.auth); 
+            var config = new MonzoConfiguration()
+            {
+                httpService = this.httpService.Object,
+                logger = this.logger.Object,
+                jsonService = this.jsonService.Object,
+                authService = this.authService.Object
+            };
+
+            return new AccountService(config);
         }
     }
 }

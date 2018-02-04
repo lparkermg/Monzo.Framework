@@ -19,16 +19,9 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Monzo.Framework.Services.AccountService"/> class.
         /// </summary>
-        /// <param name="httpService">Http service.</param>
-        /// <param name="logger">Logger.</param>
-        /// <param name="jsonService">Json service.</param>
-        /// <param name="authetication">Authetication.</param>
-        public AccountService(
-            IHttpService httpService, 
-            ILogger logger, 
-            IJSONService jsonService, 
-            Authentication authetication) 
-            : base(httpService, logger, jsonService, authetication)
+        /// <param name="config">Library configurations</param>
+        public AccountService(MonzoConfiguration config) 
+            : base(config)
         {
             
         }

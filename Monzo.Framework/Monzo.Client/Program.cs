@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
+using Monzo.Framework;
 using Monzo.Framework.Services;
 
 namespace Monzo.Client
@@ -17,14 +18,13 @@ namespace Monzo.Client
             var httpService = new HttpService(logger);
             var authservice = new AuthenticationLocalService(configService, logger);
 
+            MonzoConfiguration configuration = new MonzoConfiguration();
 
-            var accountService = new AccountService(httpService, logger, jsonservice, authservice.GetAuth());
+            var accountService = new AccountService(configuration);
             var acc = accountService.GetAccountsAsync(Framework.Enums.AccountType.UKRetail);
 
-
-
             var account = acc.Result.AccountCollection.First();
-            var transactionService = new TransactionService(httpService, logger, jsonservice, authservice.GetAuth());
+            var transactionService = new TransactionService(configuration);
 
             //var result = transactionService.GetTransactionsAsync(account, false).Result;
             var result2 = transactionService.GetTransactionsByDateAsync(account, new DateTime(2018, 01, 05), new DateTime(2018, 01, 10), false).Result;

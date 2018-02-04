@@ -29,26 +29,18 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Monzo.Framework.Services.BaseService"/> class.
         /// </summary>
-        /// <param name="httpService">Http service.</param>
-        /// <param name="logger">Logger.</param>
-        /// <param name="jsonService">Json service.</param>
-        /// <param name="authetication">Authetication.</param>
-        protected BaseService(
-           IHttpService httpService,
-           ILogger logger,
-           IJSONService jsonService,
-           Authentication authetication)
+        /// <param name="configuration">Library configurations</param>
+        protected BaseService(MonzoConfiguration configuration)
         {
-            this.httpService = httpService ?? throw new ArgumentNullException(nameof(httpService));
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.jsonService = jsonService ?? throw new ArgumentNullException(nameof(jsonService));
+            this.httpService = configuration.httpService ?? throw new ArgumentNullException(nameof(httpService));
+            this.logger = configuration.logger ?? throw new ArgumentNullException(nameof(logger));
+            this.jsonService = configuration.jsonService ?? throw new ArgumentNullException(nameof(jsonService));
+            this.authetication = configuration.GetAuth();
 
             if (string.IsNullOrWhiteSpace(authetication.AccessToken))
             {
                 throw new ArgumentNullException(nameof(authetication.AccessToken));
             }
-
-            this.authetication = authetication;
         }
     }
 }
