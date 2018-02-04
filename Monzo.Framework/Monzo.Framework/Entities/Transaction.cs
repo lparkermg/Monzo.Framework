@@ -1,6 +1,7 @@
 ﻿namespace Monzo.Framework.Entities
 {
     using System;
+    using Monzo.Framework.Converters;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -68,9 +69,8 @@
         /// Gets or sets the merchant.
         /// </summary>
         /// <value>The merchant.</value>
-        [JsonIgnore]
+        [JsonProperty("merchant")]
+        [JsonConverter(typeof(MerchantDataConverter))]
         public Merchant Merchant { get; set; }
-
-        //public Merchant merchant {get;set;}
     }
 }

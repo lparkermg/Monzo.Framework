@@ -68,6 +68,7 @@
     <Compile Include="Entities\Merchant.cs" />
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Services\TransactionService.cs" />
+    <Compile Include="Converters\MerchantConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
@@ -75,6 +76,7 @@
     <Folder Include="Entities\" />
     <Folder Include="Enums\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
