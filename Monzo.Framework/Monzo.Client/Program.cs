@@ -22,23 +22,6 @@ namespace Monzo.Client
             Console.WriteLine(account.ID);
             Console.WriteLine(account.Description);
             Console.WriteLine(account.Created);
-
-            var potservice = new PotService(configuration);
-            potservice.GetPotsAsync()
-
-            var transactions = transactionService.GetTransactionsAsync(account, false);
-           
-            //var result = transactionService.GetTransactionsAsync(account, false).Result;
-            var result2 = transactionService.GetTransactionsByDateAsync(account, new DateTime(2018, 01, 05), new DateTime(2018, 01, 10), false).Result;
-
-            var balanceservice = new BalanceService(configuration);
-            var balance = balanceservice.GetBalanceAsync(account).Result;
-
-            Console.WriteLine(balance.BalanceAmount);
-
-            Console.WriteLine(result2);
-
-            //Console.WriteLine(balanceService.GetBalanceAsync(acc.Result.AccountCollection.First()).Result.BalanceAmount);
         }
     }
 }
