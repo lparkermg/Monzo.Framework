@@ -62,6 +62,7 @@
     <Compile Include="Entities\Balance.cs" />
     <Compile Include="Contracts\IBalanceService.cs" />
     <Compile Include="Services\BalanceService.cs" />
+    <Compile Include="MonzoConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
