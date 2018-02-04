@@ -16,7 +16,7 @@ Library to access the Monzo API via .NET.
         - [Pots](#pots)
 
 ## Setup
-1. `Install-Package Monzo.Framework -Version 0.0.2`
+1. `Install-Package Monzo.Framework`
 2. Set up Environment variable:
 
 ```sh

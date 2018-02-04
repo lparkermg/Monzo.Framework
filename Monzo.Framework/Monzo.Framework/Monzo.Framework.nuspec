@@ -2,11 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Monzo.Framework</id>
-        <version>0.0.2</version>
+        <version>0.0.3</version>
         <description>Library to access the Monzo API via .NET</description>
         <authors>Kiran Patel</authors>
         <language>en-GB</language>
         <projectUrl>https://github.com/kiran94/Monzo.Framework/</projectUrl>
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     </metadata>
+    <files>
+    <file src="bin\Debug\*.dll" target="lib" />
+    </files>
 </package>
