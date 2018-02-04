@@ -66,17 +66,17 @@
         /// Ensures when there are no accounts returned, an empty list is returned.
         /// </summary>
         [Test]
-        public async Task GetAccounts_NoAccounts_EmptyList()
+        public async Task GetAccountsAsync_NoAccounts_EmptyList()
         {
             this.httpService
-                .Setup(x => x.Get(new Uri(AccountService.Endpoint), this.headers))
+                .Setup(x => x.GetAsync(new Uri(AccountService.Endpoint), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
                 .Setup(x => x.Parse<Accounts>("json"))
                 .Returns(new Accounts() { AccountCollection = new List<Account>()});
 
-            var result = await this.GetInstance().GetAccounts();
+            var result = await this.GetInstance().GetAccountsAsync();
 
             CollectionAssert.IsEmpty(result.AccountCollection);
             this.httpService.VerifyAll();
@@ -87,21 +87,21 @@
         /// Ensures when there are accounts found, they are returned.
         /// </summary>
         [Test]
-        public async Task GetAccounts_AccountsFound_AccountsReturned()
+        public async Task GetAccountsAsync_AccountsFound_AccountsReturned()
         {
             var returned = new Accounts();
             returned.AccountCollection = new List<Account>();
             returned.AccountCollection.Add(new Account() { ID = "1" , Created = new DateTime(2018,01,01), Description = "desc"});
 
             this.httpService
-                .Setup(x => x.Get(new Uri(AccountService.Endpoint), this.headers))
+                .Setup(x => x.GetAsync(new Uri(AccountService.Endpoint), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
                 .Setup(x => x.Parse<Accounts>("json"))
                 .Returns(returned);
 
-            var result = await this.GetInstance().GetAccounts();
+            var result = await this.GetInstance().GetAccountsAsync();
 
             Assert.AreEqual(1, result.AccountCollection.Count);
             Assert.AreEqual(returned.AccountCollection.First().ID, result.AccountCollection.First().ID);
@@ -116,21 +116,21 @@
         /// Ensures when an account type is suppied, the account type is added to the uri and returning data is returned.
         /// </summary>      
         [Test]
-        public async Task GetAccounts_WithAccountType_AccountsReturned()
+        public async Task GetAccountsAsync_WithAccountType_AccountsReturned()
         {
             var returned = new Accounts();
             returned.AccountCollection = new List<Account>();
             returned.AccountCollection.Add(new Account() { ID = "1", Created = new DateTime(2018, 01, 01), Description = "desc" });
 
             this.httpService
-                .Setup(x => x.Get(new Uri(AccountService.Endpoint + "?account_type=" + AccountType.UKRetail.GetDescription() ), this.headers))
+                .Setup(x => x.GetAsync(new Uri(AccountService.Endpoint + "?account_type=" + AccountType.UKRetail.GetDescription() ), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
                 .Setup(x => x.Parse<Accounts>("json"))
                 .Returns(returned);
 
-            var result = await this.GetInstance().GetAccounts(AccountType.UKRetail);
+            var result = await this.GetInstance().GetAccountsAsync(AccountType.UKRetail);
 
             Assert.AreEqual(1, result.AccountCollection.Count);
             Assert.AreEqual(returned.AccountCollection.First().ID, result.AccountCollection.First().ID);

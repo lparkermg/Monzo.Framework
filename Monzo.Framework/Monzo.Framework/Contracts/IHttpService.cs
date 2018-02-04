@@ -15,6 +15,6 @@
         /// <returns>The awaitable response.</returns>
         /// <param name="uri">URI to GET.</param>
         /// <param name="headers">Headers to add to the HTTP request.</param>
-        Task<string> Get(Uri uri, Dictionary<string, string> headers);
+        Task<string> GetAsync(Uri uri, Dictionary<string, string> headers);
     }
 }

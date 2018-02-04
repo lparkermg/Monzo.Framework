@@ -19,13 +19,13 @@ namespace Monzo.Client
 
 
             var accountService = new AccountService(httpService, logger, jsonservice, authservice.GetAuth());
-            var acc = accountService.GetAccounts(Framework.Enums.AccountType.UKRetail);
+            var acc = accountService.GetAccountsAsync(Framework.Enums.AccountType.UKRetail);
 
 
 
 
             var balanceService = new BalanceService(httpService, logger, jsonservice, authservice.GetAuth());
-            Console.WriteLine(balanceService.GetBalance(acc.Result.AccountCollection.First()).Result.BalanceAmount);
+            Console.WriteLine(balanceService.GetBalanceAsync(acc.Result.AccountCollection.First()).Result.BalanceAmount);
         }
     }
 }

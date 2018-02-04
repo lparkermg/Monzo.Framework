@@ -34,7 +34,7 @@
         }
 
         /// <inhertidoc />
-        public async Task<Accounts> GetAccounts()
+        public async Task<Accounts> GetAccountsAsync()
         {
             var uri = new Uri(AccountService.Endpoint);
             var headers = new Dictionary<string, string>()
@@ -45,12 +45,12 @@
                 }
             };
 
-            var rawJson = await this.httpService.Get(uri, headers);
+            var rawJson = await this.httpService.GetAsync(uri, headers);
             return this.jsonService.Parse<Accounts>(rawJson);
         }
 
         /// <inhertidoc />
-        public async Task<Accounts> GetAccounts(AccountType type)
+        public async Task<Accounts> GetAccountsAsync(AccountType type)
         {
             var uri = new Uri(AccountService.Endpoint + "?account_type=" + type.GetDescription());
 
@@ -62,7 +62,7 @@
                 }
             };
 
-            var rawJson = await this.httpService.Get(uri, headers);
+            var rawJson = await this.httpService.GetAsync(uri, headers);
             return this.jsonService.Parse<Accounts>(rawJson);
         }
     }

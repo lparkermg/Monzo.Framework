@@ -63,7 +63,7 @@
         /// Ensures when the balance is found, they are returned.
         /// </summary>
         [Test]
-        public async Task GetBalance_BalanceFound_BalanceReturned()
+        public async Task GetBalanceAsync_BalanceFound_BalanceReturned()
         {
             var returned = new Balance()
             {
@@ -79,14 +79,14 @@
            
 
             this.httpService
-                .Setup(x => x.Get(new Uri(BalanceService.Endpoint + "?account_id=" + account.ID), this.headers))
+                .Setup(x => x.GetAsync(new Uri(BalanceService.Endpoint + "?account_id=" + account.ID), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
                 .Setup(x => x.Parse<Balance>("json"))
                 .Returns(returned);
 
-            var result = await this.GetInstance().GetBalance(account);
+            var result = await this.GetInstance().GetBalanceAsync(account);
 
             Assert.AreEqual(returned.BalanceAmount, result.BalanceAmount);
             Assert.AreEqual(returned.Currency, result.Currency);

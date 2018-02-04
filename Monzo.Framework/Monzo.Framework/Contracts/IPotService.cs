@@ -13,6 +13,6 @@
         /// Gets the pots.
         /// </summary>
         /// <returns>The pots.</returns>
-        Task<Pots> GetPots();
+        Task<Pots> GetPotsAsync();
     }
 }

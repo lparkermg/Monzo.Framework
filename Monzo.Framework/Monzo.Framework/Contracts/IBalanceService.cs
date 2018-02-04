@@ -13,6 +13,6 @@
         /// </summary>
         /// <param name="account">Account to get balance for.</param>
         /// <returns>The balance.</returns>
-        Task<Balance> GetBalance(Account account);
+        Task<Balance> GetBalanceAsync(Account account);
     }
 }

@@ -32,7 +32,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<Pots> GetPots()
+        public async Task<Pots> GetPotsAsync()
         {
             var uri = new Uri(PotService.Endpoint);
             var headers = new Dictionary<string, string>()
@@ -43,7 +43,7 @@
                 }
             };
 
-            var rawJson = await this.httpService.Get(uri, headers);
+            var rawJson = await this.httpService.GetAsync(uri, headers);
             return this.jsonService.Parse<Pots>(rawJson);
         }
     }

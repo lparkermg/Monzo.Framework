@@ -14,13 +14,13 @@
         /// Gets all Accounts.
         /// </summary>
         /// <returns>The accounts.</returns>
-        Task<Accounts> GetAccounts();
+        Task<Accounts> GetAccountsAsync();
 
         /// <summary>
         /// Gets the accounts fitered by the passed account type.
         /// </summary>
         /// <returns>The accounts.</returns>
         /// <param name="type">account type to filter on.</param>
-        Task<Accounts> GetAccounts(AccountType type);
+        Task<Accounts> GetAccountsAsync(AccountType type);
     }
 }

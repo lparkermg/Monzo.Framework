@@ -25,7 +25,7 @@
         }
 
         /// <inheritdoc />
-        public async Task<string> Get(Uri uri, Dictionary<string, string> headers)
+        public async Task<string> GetAsync(Uri uri, Dictionary<string, string> headers)
         {
             using(var client = new WebClient())
             {

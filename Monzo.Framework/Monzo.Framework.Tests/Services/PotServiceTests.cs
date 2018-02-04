@@ -63,17 +63,17 @@
         /// Ensures when there are no pots returned, an empty list is returned.
         /// </summary>
         [Test]
-        public async Task GetPots_NoPots_EmptyList()
+        public async Task GetPotsAsync_NoPots_EmptyList()
         {
             this.httpService
-                .Setup(x => x.Get(new Uri(PotService.Endpoint), this.headers))
+                .Setup(x => x.GetAsync(new Uri(PotService.Endpoint), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
                 .Setup(x => x.Parse<Pots>("json"))
                 .Returns(new Pots() { PotCollection = new List<Pot>() });
 
-            var result = await this.GetInstance().GetPots();
+            var result = await this.GetInstance().GetPotsAsync();
 
             CollectionAssert.IsEmpty(result.PotCollection);
             this.httpService.VerifyAll();

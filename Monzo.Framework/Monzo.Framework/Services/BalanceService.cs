@@ -32,7 +32,7 @@
         }
 
         /// <inhertdoc />
-        public async Task<Balance> GetBalance(Account account)
+        public async Task<Balance> GetBalanceAsync(Account account)
         {
             if (account == null)
             {
@@ -48,7 +48,7 @@
                 }
             };
 
-            var rawJson = await this.httpService.Get(uri, headers);
+            var rawJson = await this.httpService.GetAsync(uri, headers);
             return this.jsonService.Parse<Balance>(rawJson);
         }
     }
