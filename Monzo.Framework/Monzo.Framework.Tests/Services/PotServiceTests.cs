@@ -92,6 +92,5 @@
                 this.jsonService.Object,
                 this.auth);
         }
-
     }
 }
