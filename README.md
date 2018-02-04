@@ -4,3 +4,78 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Library to access the Monzo API via .NET
+
+## Setup
+1. **TODO**: ~~nuget install~~
+2. Set up Environment variable:
+
+```sh
+export MONZO="<ACCESS_TOKEN>"
+```
+
+You can get your access token [here](https://developers.monzo.com/) if you have a Monzo Account.
+
+## Usage
+All services in this library make use of the `MonzoConfiguration` object. Each endpoint is also `awaitable`.
+
+### Accounts
+```cs
+// Create configuration object.
+var configuration = new MonzoConfiguration();
+
+// Create Account service and pass config.
+var accountService = new AccountService(configuration);
+
+// Get Accounts (awaitable)
+var accounts = await accountService.GetAccountsAsync();
+```
+
+### Balance
+```cs
+// Create configuration object.
+var configuration = new MonzoConfiguration();
+
+// Retrieve Accounts and select one.
+var accountService = new AccountService(configuration);
+var accounts = await accountService.GetAccountsAsync();
+var account = accounts.Result.AccountCollection.First();
+
+// Create Balance service and retrieve.
+var balanceservice = new BalanceService(configuration);
+var balance = await balanceservice.GetBalanceAsync(account);
+```
+
+### Transactions
+
+Transactions have multiple configurations. Each function can expand merchant information. You can currently retrieve:
+- Single Transaction
+- Multiple Transactions
+- Multiple Transactions in a particular date period
+
+```cs
+// Retrieve Accounts and select one.
+var accountService = new AccountService(configuration);
+var accounts = await accountService.GetAccountsAsync();
+var account = accounts.Result.AccountCollection.First();
+
+// Construct transaction service.
+var transactionService = new TransactionService(configuration);
+
+// Get Transactions for an account.
+var transactions = await transactionService.GetTransactionsAsync(account, false);
+
+// Get all transactions for an account.
+var transactions = await transactionService.GetTransactionAsync("transaction_id", false);
+
+// Get all transactions between 05/01/18 and 10/01/18 for an account.
+var transactions = await transactionService.GetTransactionsByDateAsync(
+    account,
+    new DateTime(2018, 01, 05),
+    new DateTime(2018, 01, 10), false);
+```
+
+### Pots
+```cs
+var potservice = new PotService(configuration);
+var pots = potservice.GetPotsAsync()
+```
