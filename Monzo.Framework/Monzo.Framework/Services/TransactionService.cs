@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Xml;
     using Monzo.Framework.Contracts;
     using Monzo.Framework.Entities;
 
@@ -79,10 +80,12 @@
                 throw new ArgumentNullException(nameof(account));
             }
 
+            DateTime UtcDateTime = TimeZoneInfo.ConvertTimeToUtc(before);
+
             var uri = new Uri(
                 TransactionService.Endpoint + "?account_id=" + account.ID 
-                    + "&since=" + since.ToString()
-                    + "&before=" + before.ToString()
+                + "&since=" + XmlConvert.ToString(since, XmlDateTimeSerializationMode.Utc)
+                + "&before=" + XmlConvert.ToString(before, XmlDateTimeSerializationMode.Utc)
                     + ((expandMerchant) ? "&expand[]=merchant" : string.Empty));
 
             var headers = new Dictionary<string, string>();
