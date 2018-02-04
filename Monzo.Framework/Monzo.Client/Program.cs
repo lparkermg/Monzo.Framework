@@ -23,9 +23,14 @@ namespace Monzo.Client
 
 
 
+            var account = acc.Result.AccountCollection.First();
+            var transactionService = new TransactionService(httpService, logger, jsonservice, authservice.GetAuth());
 
-            var balanceService = new BalanceService(httpService, logger, jsonservice, authservice.GetAuth());
-            Console.WriteLine(balanceService.GetBalanceAsync(acc.Result.AccountCollection.First()).Result.BalanceAmount);
+            var result = transactionService.GetTransactionsAsync(account, false).Result;
+
+            Console.WriteLine(result);
+
+            //Console.WriteLine(balanceService.GetBalanceAsync(acc.Result.AccountCollection.First()).Result.BalanceAmount);
         }
     }
 }

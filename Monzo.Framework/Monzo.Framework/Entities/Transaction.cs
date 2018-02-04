@@ -42,7 +42,7 @@
         /// Gets or sets the settled date.
         /// </summary>
         /// <value>The settled.</value>
-        public DateTime Settled { get; set; }
+        public DateTime? Settled { get; set; }
      
         /// <summary>
         /// Gets or sets the amount in pennies.
@@ -68,6 +68,7 @@
         /// Gets or sets the merchant.
         /// </summary>
         /// <value>The merchant.</value>
+        [JsonIgnore]
         public Merchant Merchant { get; set; }
 
         //public Merchant merchant {get;set;}

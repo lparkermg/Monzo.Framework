@@ -3,6 +3,7 @@ namespace Monzo.Framework.Tests.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using Monzo.Framework.Contracts;
     using Monzo.Framework.Entities;
@@ -105,7 +106,7 @@ namespace Monzo.Framework.Tests.Services
             };
 
             this.httpService
-                .Setup(x => x.GetAsync(new Uri(TransactionService.Endpoint + "?expand[]==merchant"), this.headers))
+                .Setup(x => x.GetAsync(new Uri(TransactionService.Endpoint + "?expand[]=merchant"), this.headers))
                 .Returns(Task.FromResult<string>("json"));
 
             this.jsonService
@@ -117,6 +118,91 @@ namespace Monzo.Framework.Tests.Services
             Assert.AreEqual(returned.ID, result.ID);
             Assert.AreEqual(returned.Notes, result.Notes);
             Assert.AreSame(returned.Merchant.Name, result.Merchant.Name);
+
+            this.httpService.VerifyAll();
+            this.jsonService.VerifyAll();
+        }
+
+        /// <summary>
+        /// Ensures when transactions are retrieved with false merchant, the correct url is called
+        /// and the transactions are returned.
+        /// </summary>
+        [Test]
+        public async Task GetTransactionsAsync_RetievedAndMerchantFalse_Returned()
+        {
+            var returned = new Transactions()
+            {
+                TransactionCollection = new List<Transaction>()
+                {
+                    new Transaction()
+                    {
+                        ID = "1234",
+                        Notes = "this is a transaction"
+                    }
+                }
+            };
+
+            var account = new Account { ID = "1" };
+            var url = new Uri(TransactionService.Endpoint + "?account_id=" + account.ID);
+
+            this.httpService
+                .Setup(x => x.GetAsync(url, this.headers))
+                .Returns(Task.FromResult<string>("json"));
+
+            this.jsonService
+                .Setup(x => x.Parse<Transactions>("json"))
+                .Returns(returned);
+
+            var result = await this.GetInstance().GetTransactionsAsync(account, false);
+
+            CollectionAssert.IsNotEmpty(result.TransactionCollection);
+            Assert.AreEqual(returned.TransactionCollection.First().ID, result.TransactionCollection.First().ID);
+            Assert.AreEqual(returned.TransactionCollection.First().Notes, result.TransactionCollection.First().Notes);
+
+            this.httpService.VerifyAll();
+            this.jsonService.VerifyAll();
+        }
+
+        /// <summary>
+        /// Ensures when transactions are retrieved with true merchant, the correct url is called
+        /// and the transactions are returned.
+        /// </summary>
+        [Test]
+        public async Task GetTransactionsAsync_RetievedAndMerchantTrue_Returned()
+        {
+            var returned = new Transactions()
+            {
+                TransactionCollection = new List<Transaction>()
+                {
+                    new Transaction()
+                    {
+                        ID = "1234",
+                        Notes = "this is a transaction",
+                        Merchant = new Merchant()
+                        {
+                            ID = "mID"
+                        }
+                    }
+                }
+            };
+
+            var account = new Account { ID = "1" };
+            var url = new Uri(TransactionService.Endpoint + "?account_id=" + account.ID + "&expand[]=merchant");
+
+            this.httpService
+                .Setup(x => x.GetAsync(url, this.headers))
+                .Returns(Task.FromResult<string>("json"));
+
+            this.jsonService
+                .Setup(x => x.Parse<Transactions>("json"))
+                .Returns(returned);
+
+            var result = await this.GetInstance().GetTransactionsAsync(account, true);
+
+            CollectionAssert.IsNotEmpty(result.TransactionCollection);
+            Assert.AreEqual(returned.TransactionCollection.First().ID, result.TransactionCollection.First().ID);
+            Assert.AreEqual(returned.TransactionCollection.First().Notes, result.TransactionCollection.First().Notes);
+            Assert.AreEqual(returned.TransactionCollection.First().Merchant.ID, result.TransactionCollection.First().Merchant.ID);
 
             this.httpService.VerifyAll();
             this.jsonService.VerifyAll();

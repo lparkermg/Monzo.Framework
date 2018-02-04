@@ -12,7 +12,7 @@
         /// <summary>
         /// The API endpoint.
         /// </summary>
-        public static string Endpoint = "https://api.monzo.com/transactions/";
+        public static string Endpoint = "https://api.monzo.com/transactions";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Monzo.Framework.Services.BalanceService"/> class.
@@ -39,7 +39,7 @@
                 throw new ArgumentNullException(nameof(ID));
             }
                        
-            var uri = new Uri(TransactionService.Endpoint + ((expandMerchant) ? "?expand[]==merchant" : string.Empty));
+            var uri = new Uri(TransactionService.Endpoint + ((expandMerchant) ? "?expand[]=merchant" : string.Empty));
             var headers = new Dictionary<string, string>
             {
                 {
@@ -55,13 +55,41 @@
         /// <inheritdoc />
         public async Task<Transactions> GetTransactionsAsync(Account account, bool expandMerchant = false)
         {
-            throw new NotImplementedException();
+            if (account == null)
+            {
+                throw new ArgumentNullException(nameof(account));
+            }
+
+            var uri = new Uri(
+                TransactionService.Endpoint + "?account_id=" + account.ID 
+                    + ((expandMerchant) ? "&expand[]=merchant" : string.Empty));
+
+            var headers = new Dictionary<string, string>();           
+            headers.Add("Authorization", "Bearer " + this.authetication.AccessToken);
+
+            var rawJson = await this.httpService.GetAsync(uri, headers);
+            return this.jsonService.Parse<Transactions>(rawJson);
         }
 
         /// <inheritdoc />
         public async Task<Transactions> GetTransactionsByDateAsync(Account account, DateTime since, DateTime before, bool expandMerchant = false)
         {
-            throw new NotImplementedException();
+            if (account == null)
+            {
+                throw new ArgumentNullException(nameof(account));
+            }
+
+            var uri = new Uri(
+                TransactionService.Endpoint + "?account_id=" + account.ID 
+                    + "&since=" + since.ToString()
+                    + "&before=" + before.ToString()
+                    + ((expandMerchant) ? "&expand[]=merchant" : string.Empty));
+
+            var headers = new Dictionary<string, string>();
+            headers.Add("Authorization", "Bearer " + this.authetication.AccessToken);
+
+            var rawJson = await this.httpService.GetAsync(uri, headers);
+            return this.jsonService.Parse<Transactions>(rawJson);
         }
     }
 }
