@@ -62,6 +62,12 @@
     <Compile Include="Entities\Balance.cs" />
     <Compile Include="Contracts\IBalanceService.cs" />
     <Compile Include="Services\BalanceService.cs" />
+    <Compile Include="Contracts\ITransactionService.cs" />
+    <Compile Include="Entities\Transaction.cs" />
+    <Compile Include="Entities\Transactions.cs" />
+    <Compile Include="Entities\Merchant.cs" />
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Services\TransactionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
