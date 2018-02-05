@@ -10,6 +10,6 @@
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     </metadata>
     <files>
-    <file src="bin\Debug\*.dll" target="lib" />
+    <file src="Monzo.Framework\Monzo.Framework\bin\Debug\*.dll" target="lib" />
     </files>
 </package>
