@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Monzo.Framework</id>
-        <version>0.0.3-alpha</version>
+        <version>0.0.4-alpha</version>
         <description>Library to access the Monzo API via .NET</description>
         <authors>Kiran Patel</authors>
         <language>en-GB</language>
@@ -10,6 +10,6 @@
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     </metadata>
     <files>
-    <file src="Monzo.Framework\Monzo.Framework\bin\Debug\*.dll" target="lib" />
+    <file src="Monzo.Framework\Monzo.Framework\bin\$configuration$\*.dll" target="lib" />
     </files>
 </package>
