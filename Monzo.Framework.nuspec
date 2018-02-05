@@ -10,6 +10,7 @@
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     </metadata>
     <files>
-    <file src="Monzo.Framework\Monzo.Framework\bin\$configuration$\*.dll" target="lib" />
+        <file src="Monzo.Framework\Monzo.Framework\bin\$configuration$\*.dll" target="lib" />
+        <file src="Monzo.Framework\Monzo.Framework\bin\$configuration$\*.pdb" target="lib" />
     </files>
 </package>
