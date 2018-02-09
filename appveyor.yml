@@ -11,9 +11,13 @@ branches:
     - devel
     - production
 
+init:
+  - ps: Write-Host "Cloning Repository %APPVEYOR_REPO_BRANCH%" -ForegroundColor Green
+
 before_build:
   - ps: Write-Host "Restoring Nuget Packages" -ForegroundColor Green
   - cmd: nuget restore Monzo.Framework/Monzo.Framework.sln
+  - ps: Write-Host "Startning Build" -ForegroundColor Green
 
 build:
   parallel: true # enable MSBuild parallel builds
