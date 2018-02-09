@@ -12,7 +12,7 @@ branches:
     - production
 
 init:
-  - ps: Write-Host "Cloning Repository %APPVEYOR_REPO_BRANCH%" -ForegroundColor Green
+  - ps: Write-Host "Cloning Repository" -ForegroundColor Green
 
 before_build:
   - ps: Write-Host "Restoring Nuget Packages" -ForegroundColor Green
