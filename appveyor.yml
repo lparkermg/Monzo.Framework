@@ -12,7 +12,8 @@ branches:
     - production
 
 before_build:
-  nuget restore Monzo.Framework/Monzo.Framework.sln
+  - ps: Write-Host "Restoring Nuget Packages" -ForegroundColor Green
+  - cmd: nuget restore Monzo.Framework/Monzo.Framework.sln
 
 build:
   parallel: true # enable MSBuild parallel builds
@@ -25,5 +26,7 @@ test:
       - Monzo.Framework/Monzo.Framework.Tests/bin/Release/Monzo.Framework.Tests.dll
 
 after_build:
-  nuget pack Monzo.Framework.nuspec -properties Configuration=Release
-  nuget push Monzo.Framework.*.nupkg -Source https://www.nuget.org/api/v2/package -ApiKey %nuget%
+  - ps: Write-Host "Packing Nuget Package" -ForegroundColor Green
+  - cmd: nuget pack Monzo.Framework.nuspec -properties Configuration=Release
+  - ps: Write-Host "Pushing Nuget Package" -ForegroundColor Green
+  - cmd: nuget push Monzo.Framework.*.nupkg -Source https://www.nuget.org/api/v2/package -ApiKey %nuget%
