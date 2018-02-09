@@ -12,7 +12,7 @@ branches:
     - production
 
 init:
-  - ps: Write-Host "Cloning Repository" -ForegroundColor Green
+  - ps: Write-Host "Cloning Repository %APPVEYOR_REPO_BRANCH%" -ForegroundColor Green
 
 before_build:
   - ps: Write-Host "Restoring Nuget Packages" -ForegroundColor Green
@@ -29,7 +29,7 @@ test:
     only:
       - Monzo.Framework/Monzo.Framework.Tests/bin/Release/Monzo.Framework.Tests.dll
 
-after_build:
+after_test:
   - ps: Write-Host "Packing Nuget Package" -ForegroundColor Green
   - cmd: nuget pack Monzo.Framework.nuspec -properties Configuration=Release
   - ps: Write-Host "Pushing Nuget Package" -ForegroundColor Green
