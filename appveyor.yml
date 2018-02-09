@@ -1,0 +1,29 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+
+environment:
+  nuget:
+    secure: zOVs7fQ2haaJX4HH25B47DgzZhBeRRjw4CS+U2mY1Ks2PAN9jidZeCi1+9iypLFk
+
+branches:
+  only:
+    - devel
+    - production
+
+before_build:
+  nuget restore Monzo.Framework/Monzo.Framework.sln
+
+build:
+  parallel: true # enable MSBuild parallel builds
+  project: Monzo.Framework/Monzo.Framework.sln  # path to Visual Studio solution or project
+  verbosity: normal # MSBuild verbosity level
+
+test:
+  assemblies:
+    only:
+      - Monzo.Framework/Monzo.Framework.Tests/bin/Release/Monzo.Framework.Tests.dll
+
+after_build:
+  nuget pack Monzo.Framework.nuspec -properties Configuration=Release
+  nuget push Monzo.Framework.*.nupkg -Source https://www.nuget.org/api/v2/package -ApiKey %nuget%
