@@ -30,11 +30,8 @@ All services in this library make use of the `MonzoConfiguration` object. Each e
 
 ### Accounts
 ```cs
-// Create configuration object.
-var configuration = new MonzoConfiguration();
-
-// Create Account service and pass config.
-var accountService = new AccountService(configuration);
+// Construct Account Service
+var accountService = Monzo.Framework.Factory.CreateAccountService();
 
 // Get Accounts (awaitable)
 var accounts = await accountService.GetAccountsAsync();
@@ -42,21 +39,17 @@ var accounts = await accountService.GetAccountsAsync();
 
 ### Balance
 ```cs
-// Create configuration object.
-var configuration = new MonzoConfiguration();
-
-// Retrieve Accounts and select one.
-var accountService = new AccountService(configuration);
+// Construct and retrieve Accounts and select one.
+var accountService = Monzo.Framework.Factory.CreateAccountService();
 var accounts = await accountService.GetAccountsAsync();
-var account = accounts.Result.AccountCollection.First();
+var account = accounts.AccountCollection.First();
 
-// Create Balance service and retrieve.
-var balanceservice = new BalanceService(configuration);
-var balance = await balanceservice.GetBalanceAsync(account);
+// Construct Balance service and retrieve.
+var balanceService = Monzo.Framework.Factory.CreateBalanceService();
+var balance = await balanceService.GetBalanceAsync(account);
 ```
 
 ### Transactions
-
 Transactions have multiple configurations. Each function can expand merchant information. You can currently retrieve:
 - Single Transaction
 - Multiple Transactions
@@ -64,18 +57,18 @@ Transactions have multiple configurations. Each function can expand merchant inf
 
 ```cs
 // Retrieve Accounts and select one.
-var accountService = new AccountService(configuration);
+var accountService = Monzo.Framework.Factory.CreateAccountService();
 var accounts = await accountService.GetAccountsAsync();
-var account = accounts.Result.AccountCollection.First();
+var account = accounts.AccountCollection.First();
 
 // Construct transaction service.
-var transactionService = new TransactionService(configuration);
+var transactionService = Monzo.Framework.Factory.CreateTransactionService();
 
 // Get Transactions for an account.
-var transactions = await transactionService.GetTransactionsAsync(account, false);
+var transactionService = await transactionService.GetTransactionsAsync(account, false);
 
-// Get all transactions for an account.
-var transactions = await transactionService.GetTransactionAsync("transaction_id", false);
+// Get a specific transaction by ID.
+var transactionService = await transactionService.GetTransactionAsync("transaction_id", false);
 
 // Get all transactions between 05/01/18 and 10/01/18 for an account.
 var transactions = await transactionService.GetTransactionsByDateAsync(
@@ -86,6 +79,6 @@ var transactions = await transactionService.GetTransactionsByDateAsync(
 
 ### Pots
 ```cs
-var potservice = new PotService(configuration);
-var pots = potservice.GetPotsAsync()
+var potService = Monzo.Framework.Factory.CreatePotService();
+var pots = await potService.GetPotsAsync()
 ```

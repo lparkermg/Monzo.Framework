@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Monzo.Framework</id>
-        <version>0.0.5-alpha</version>
+        <version>0.0.6-alpha</version>
         <description>Library to access the Monzo API via .NET</description>
         <authors>Kiran Patel</authors>
         <language>en-GB</language>
