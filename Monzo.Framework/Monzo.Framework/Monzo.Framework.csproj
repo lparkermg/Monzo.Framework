@@ -71,6 +71,7 @@
     <Compile Include="Entities\Address.cs" />
     <Compile Include="Services\TransactionService.cs" />
     <Compile Include="Converters\MerchantConverter.cs" />
+    <Compile Include="Factory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Contracts\" />
