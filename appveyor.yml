@@ -1,0 +1,36 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+configuration: Release
+
+environment:
+  nuget:
+    secure: zOVs7fQ2haaJX4HH25B47DgzZhBeRRjw4CS+U2mY1Ks2PAN9jidZeCi1+9iypLFk
+
+branches:
+  only:
+    - devel
+    - production
+
+init:
+  - ps: Write-Host "Cloning Repository" -ForegroundColor Green
+
+before_build:
+  - ps: Write-Host "Restoring Nuget Packages" -ForegroundColor Green
+  - cmd: nuget restore Monzo.Framework/Monzo.Framework.sln
+  - ps: Write-Host "Starting Build" -ForegroundColor Green
+
+build:
+  parallel: true # enable MSBuild parallel builds
+  project: Monzo.Framework/Monzo.Framework.sln  # path to Visual Studio solution or project
+  verbosity: normal # MSBuild verbosity level
+
+test:
+  assemblies:
+    only:
+      - Monzo.Framework/Monzo.Framework.Tests/bin/Release/Monzo.Framework.Tests.dll
+
+deploy_script:
+  - ps: Write-Host "Packing Nuget Package" -ForegroundColor Green
+  - cmd: nuget pack Monzo.Framework.nuspec -properties Configuration=Release
+  - ps: Write-Host "Pushing Nuget Package" -ForegroundColor Green
+  - cmd: nuget push Monzo.Framework.*.nupkg -Source https://www.nuget.org/api/v2/package -ApiKey %nuget%
