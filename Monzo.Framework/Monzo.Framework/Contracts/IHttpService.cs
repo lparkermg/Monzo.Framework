@@ -16,5 +16,21 @@
         /// <param name="uri">URI to GET.</param>
         /// <param name="headers">Headers to add to the HTTP request.</param>
         Task<string> GetAsync(Uri uri, Dictionary<string, string> headers);
+        
+        /// <summary>
+        /// Makes a PUT request to the given uri with the given headers.
+        /// </summary>
+        /// <param name="uri">URI to PUT.</param>
+        /// <param name="headers">Headers to add to the HTTP request.</param>
+        /// <returns>The awaitable response.</returns>
+        Task<string> PutAsync(Uri uri, Dictionary<string, string> headers);
+
+        /// <summary>
+        /// Makes a POST request to the given uri with the given headers.
+        /// </summary>
+        /// <param name="uri">URI to POST.</param>
+        /// <param name="headers">Headers to add to the HTTP request.</param>
+        /// <returns>The awaitable response.</returns>
+        Task<bool> PostAsync(Uri uri, Dictionary<string, string> headers);
     }
 }
