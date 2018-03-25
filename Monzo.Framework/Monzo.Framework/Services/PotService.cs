@@ -12,7 +12,7 @@
         /// <summary>
         /// The API endpoint.
         /// </summary>
-        public static string Endpoint = "https://api.monzo.com/pots/listV1";
+        public static string Endpoint = "https://api.monzo.com/pots/";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Monzo.Framework.Services.PotService"/> class.
@@ -39,6 +39,18 @@
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
             return this.jsonService.Parse<Pots>(rawJson);
+        }
+
+        /// <inheritdoc />
+        public Task<bool> DepositToPotAsync(string potId, long amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<bool> WithdrawFromPotAsync(string destinationAccountId, string potId, long amount)
+        {
+            throw new NotImplementedException();
         }
     }
 }
