@@ -39,7 +39,7 @@
             };
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Accounts>(rawJson);
+            return this.jsonService.Parse<Accounts>(rawJson.Content.ReadAsStringAsync().Result);
         }
 
         /// <inhertidoc />
@@ -56,7 +56,7 @@
             };
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Accounts>(rawJson);
+            return this.jsonService.Parse<Accounts>(rawJson.Content.ReadAsStringAsync().Result);
         }
     }
 }

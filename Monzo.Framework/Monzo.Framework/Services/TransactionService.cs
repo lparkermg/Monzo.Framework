@@ -44,7 +44,7 @@
             };
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Transaction>(rawJson);
+            return this.jsonService.Parse<Transaction>(rawJson.Content.ReadAsStringAsync().Result);
         }
 
         /// <inheritdoc />
@@ -63,7 +63,7 @@
             headers.Add("Authorization", "Bearer " + this.authetication.AccessToken);
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Transactions>(rawJson);
+            return this.jsonService.Parse<Transactions>(rawJson.Content.ReadAsStringAsync().Result);
         }
 
         /// <inheritdoc />
@@ -86,7 +86,7 @@
             headers.Add("Authorization", "Bearer " + this.authetication.AccessToken);
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Transactions>(rawJson);
+            return this.jsonService.Parse<Transactions>(rawJson.Content.ReadAsStringAsync().Result);
         }
     }
 }

@@ -42,7 +42,7 @@
             };
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Balance>(rawJson);
+            return this.jsonService.Parse<Balance>(rawJson.Content.ReadAsStringAsync().Result);
         }
     }
 }

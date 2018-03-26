@@ -1,4 +1,6 @@
-﻿namespace Monzo.Framework.Services
+﻿using System.Net.Http;
+
+namespace Monzo.Framework.Services
 {
     using System;
     using System.Collections.Generic;
@@ -25,17 +27,29 @@
         }
 
         /// <inheritdoc />
-        public async Task<string> GetAsync(Uri uri, Dictionary<string, string> headers)
+        public async Task<HttpResponseMessage> GetAsync(Uri uri, Dictionary<string, string> headers)
         {
-            using(var client = new WebClient())
+            using(var client = new HttpClient())
             {
                 foreach(var currentHeader in headers)
                 {
-                    client.Headers.Set(currentHeader.Key, currentHeader.Value);
+                    client.DefaultRequestHeaders.TryAddWithoutValidation(currentHeader.Key, currentHeader.Value);
                 }
                              
-                return await client.DownloadStringTaskAsync(uri.AbsoluteUri);
+                return await client.GetAsync(uri);
             }
+        }
+
+        /// <inheritdoc />
+        public Task<HttpResponseMessage> PutAsync(Uri uri, Dictionary<string, string> headers)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public Task<HttpResponseMessage> PostAsync(Uri uri, Dictionary<string, string> headers)
+        {
+            throw new NotImplementedException();
         }
     }
 }

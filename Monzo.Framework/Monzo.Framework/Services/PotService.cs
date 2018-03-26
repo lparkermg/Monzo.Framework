@@ -38,7 +38,7 @@
             };
 
             var rawJson = await this.httpService.GetAsync(uri, headers);
-            return this.jsonService.Parse<Pots>(rawJson);
+            return this.jsonService.Parse<Pots>(rawJson.Content.ReadAsStringAsync().Result);
         }
 
         /// <inheritdoc />
