@@ -1,4 +1,6 @@
-﻿namespace Monzo.Framework.Tests.Services
+﻿using System.Net.Http;
+
+namespace Monzo.Framework.Tests.Services
 {
     using System;
     using NUnit.Framework;
@@ -49,6 +51,11 @@
         private Dictionary<string, string> headers;
 
         /// <summary>
+        /// The http response.
+        /// </summary>
+        private HttpResponseMessage httpResponse;
+        
+        /// <summary>
         /// Sets up.
         /// </summary>
         [SetUp]
@@ -69,6 +76,11 @@
                     "Bearer " + this.auth.AccessToken
                 }
             };
+
+            this.httpResponse = new HttpResponseMessage()
+            {
+                Content = new StringContent("json")
+            };
         }
 
         /// <summary>
@@ -79,7 +91,7 @@
         {
             this.httpService
                 .Setup(x => x.GetAsync(new Uri(AccountService.Endpoint), this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Accounts>("json"))
@@ -104,7 +116,7 @@
 
             this.httpService
                 .Setup(x => x.GetAsync(new Uri(AccountService.Endpoint), this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Accounts>("json"))
@@ -134,7 +146,7 @@
 
             this.httpService
                 .Setup(x => x.GetAsync(new Uri(AccountService.Endpoint + "?account_type=" + AccountType.UKRetail.GetDescription() ), this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Accounts>("json"))

@@ -1,4 +1,6 @@
 ﻿
+using System.Net.Http;
+
 namespace Monzo.Framework.Tests.Services
 {
     using System;
@@ -45,6 +47,11 @@ namespace Monzo.Framework.Tests.Services
         private Dictionary<string, string> headers;
 
         /// <summary>
+        /// The http response.
+        /// </summary>
+        private HttpResponseMessage httpResponse;
+
+        /// <summary>
         /// Sets up.
         /// </summary>
         [SetUp]
@@ -65,6 +72,11 @@ namespace Monzo.Framework.Tests.Services
                     "Bearer " + this.auth.AccessToken
                 }
             };
+
+            this.httpResponse = new HttpResponseMessage()
+            {
+                Content = new StringContent("json")
+            };
         }
 
         /// <summary>
@@ -82,7 +94,7 @@ namespace Monzo.Framework.Tests.Services
 
             this.httpService
                 .Setup(x => x.GetAsync(new Uri(TransactionService.Endpoint), this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Transaction>("json"))
@@ -116,7 +128,7 @@ namespace Monzo.Framework.Tests.Services
 
             this.httpService
                 .Setup(x => x.GetAsync(new Uri(TransactionService.Endpoint + "?expand[]=merchant"), this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Transaction>("json"))
@@ -156,7 +168,7 @@ namespace Monzo.Framework.Tests.Services
 
             this.httpService
                 .Setup(x => x.GetAsync(url, this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Transactions>("json"))
@@ -200,7 +212,7 @@ namespace Monzo.Framework.Tests.Services
 
             this.httpService
                 .Setup(x => x.GetAsync(url, this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Transactions>("json"))

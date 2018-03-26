@@ -1,4 +1,6 @@
-﻿namespace Monzo.Framework.Tests.Services
+﻿using System.Net.Http;
+
+namespace Monzo.Framework.Tests.Services
 {
     using System;
     using System.Collections.Generic;
@@ -46,6 +48,11 @@
         private Dictionary<string, string> headers;
 
         /// <summary>
+        /// The http response.
+        /// </summary>
+        private HttpResponseMessage httpResponse;
+
+        /// <summary>
         /// Sets up.
         /// </summary>
         [SetUp]
@@ -65,6 +72,11 @@
                     "Authorization",
                     "Bearer " + this.auth.AccessToken
                 }
+            };
+
+            httpResponse = new HttpResponseMessage()
+            {
+                Content = new StringContent("json")
             };
         }
 
@@ -89,7 +101,7 @@
 
             this.httpService
                 .Setup(x => x.GetAsync(new Uri(BalanceService.Endpoint + "?account_id=" + account.ID), this.headers))
-                .Returns(Task.FromResult<string>("json"));
+                .Returns(Task.FromResult(httpResponse));
 
             this.jsonService
                 .Setup(x => x.Parse<Balance>("json"))
